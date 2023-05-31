@@ -1,8 +1,13 @@
+using Academico.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+var connectionString = builder.Configuration.GetConnectionString("AcademicoDbConnection");
+builder.Services.AddDbContext<AcademicoContext>(Options => Options.UseSqlServer(connectionString));   
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
